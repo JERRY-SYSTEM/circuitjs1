@@ -127,24 +127,6 @@ jobs:
           Write-Host "=== Icon generation complete ==="
         shell: pwsh
       
-      - name: Build Tauri app (Installer)
-        run: |
-          Write-Host "=== Building Tauri application (Installer) ==="
-          Write-Host "Current directory: $(Get-Location)"
-          Write-Host ""
-          
-          # Build the Tauri app
-          cargo tauri build --target x86_64-pc-windows-msvc
-          
-          Write-Host ""
-          Write-Host "=== Build completed successfully ==="
-          Write-Host "Checking target directory..."
-          if (Test-Path "src-tauri/target/x86_64-pc-windows-msvc/release/bundle") {
-            Get-ChildItem src-tauri/target/x86_64-pc-windows-msvc/release/bundle -Recurse | 
-              Where-Object { $_.Extension -in @('.exe', '.msi') } | 
-              ForEach-Object { Write-Host "  - $($_.FullName)" }
-          }
-        shell: pwsh
       
       - name: Create Portable Version
         run: |
